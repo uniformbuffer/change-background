@@ -1,0 +1,8 @@
+#!/bin/bash
+CURRENT_IMAGE_PATH=$(gsettings get org.gnome.desktop.background picture-uri)
+NEW_IMAGE_PATH=$(zenity --file-selection --title="Choose a background image" --file-filter="*.png" --filename="$CURRENT_IMAGE_PATH")
+if [ ! -z "$IMAGE_PATH" ]
+then
+	gsettings set org.gnome.desktop.background picture-uri $NEW_IMAGE_PATH
+	echo "Done"
+fi
