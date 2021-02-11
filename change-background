@@ -1,6 +1,10 @@
 #!/bin/bash
-CURRENT_IMAGE_PATH=$(gsettings get org.gnome.desktop.background picture-uri)
-NEW_IMAGE_PATH=$(zenity --file-selection --title="Choose a background image" --file-filter="*.png" --filename="$CURRENT_IMAGE_PATH")
+CURRENT_IMAGE_PATH=$(gsettings get org.gnome.desktop.background picture-uri | gawk 'match($0, /(\/([a-zA-Z0-1\-]+\/)+[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+)/, a) {print a[1]}')
+if [ ! -z "$CURRENT_IMAGE_PATH" ]
+then
+	CURRENT_IMAGE_EXPR="--filename=$CURRENT_IMAGE_PATH"
+fi
+NEW_IMAGE_PATH=$(zenity --file-selection --title="Choose a background image" --file-filter="*.png|*.jpg|*.svg" $CURRENT_IMAGE_EXPR)
 if [ ! -z "$IMAGE_PATH" ]
 then
 	gsettings set org.gnome.desktop.background picture-uri $NEW_IMAGE_PATH
