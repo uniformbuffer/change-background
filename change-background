@@ -4,7 +4,7 @@ if [ ! -z "$CURRENT_IMAGE_PATH" ]
 then
 	CURRENT_IMAGE_EXPR="--filename=$CURRENT_IMAGE_PATH"
 fi
-NEW_IMAGE_PATH=$(zenity --file-selection --title="Choose a background image" --file-filter="*.png|*.jpg|*.svg" $CURRENT_IMAGE_EXPR)
+NEW_IMAGE_PATH=$(zenity --file-selection --title="Choose a background image" --file-filter="All images | *.png *.jpg *.svg" --file-filter='PNG | *.png' --file-filter='JPG | *.jpg' --file-filter='SVG | *.svg' $CURRENT_IMAGE_EXPR)
 if [ ! -z "$IMAGE_PATH" ]
 then
 	gsettings set org.gnome.desktop.background picture-uri $NEW_IMAGE_PATH
